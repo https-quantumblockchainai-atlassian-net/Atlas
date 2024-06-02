@@ -1,0 +1,165 @@
+{
+	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"name": "Halo 1 Script",
+	"patterns": [
+		{
+			"include": "#comment"
+		},
+		{
+			"include": "#expression"
+		}
+	],
+	"repository": {
+		"comment":{
+			"patterns": [
+				{
+					"name": "comment.block.hsc1",
+					"begin": ";\\*",
+					"end": "\\*;",
+					"captures":{
+						"0":{
+							"name": "comment.block.hsc1"
+						}
+					}
+				},
+				{
+					"name": "comment.line",
+					"begin": ";[^*]",
+					"end": "$",
+					"captures":{
+						"0":{
+							"name": "comment.line.hsc1"
+						}
+					}
+				}
+			]
+		},
+		"expression": {
+			"begin": "\\(",
+			"end": "\\)",
+			"beginCaptures": { 
+				"0": { "name": "punctuation.paren.open.hsc1" }
+			},
+			"endCaptures": { 
+				"0": { "name": "punctuation.paren.close.hsc1" }
+			},
+			"patterns": [
+				{
+					"include": "#comment"
+				},
+				{
+					"include": "#expression"
+				},
+				{
+					"include": "#strings"
+				},
+				{
+					"include": "#declarations"
+				},
+				{
+					"include": "#scripts"
+				},
+				{
+					"include": "#types"
+				},
+				{
+					"include": "#controls"
+				},
+				{
+					"include": "#operators"
+				},
+				{
+					"include": "#numbers"
+				},
+				{
+					"include": "#enums"
+				},
+				{
+					"include": "#globals"
+				},
+				{
+					"include": "#functions"
+				},
+				{
+					"include": "#variables"
+				}
+			]
+		},
+		"strings":{
+			"patterns": [
+				{
+					"name": "string.quoted.double.hsc1",
+					"begin": "\"",
+					"end": "\""
+
+				}
+			]
+		},
+		"declarations":{
+			"patterns": [
+				{
+					"name": "entity.name.class.hsc1",
+					"match":"(?<=^\\s*\\(\\s*)(script|global)"
+
+				}
+			]
+		},
+		"scripts":{
+			"patterns": [
+				{
+					"name":"entity.name.tag.hsc1",
+					"match": "(?<=script\\s*)\\b(continuous|command_script|dormant|startup|static|stub)\\b"
+				}
+			]
+		},
+		"types":{
+			"patterns": [
+				{
+					"name":"storage.type.hsc1",
+					"match": "(?<=\\(|static\\s|stub\\s|global\\s)\\b(void|boolean|real|short|long|string|ai|object|unit|vehicle|weapon|device|scenery|object_list|object_name|unit_name|vehicle_name|weapon_name|device_name|scenery_name|sound|effect|damage|looping_sound|animation_graph|damage_effect|object_definition|script|trigger_volume|cutscene_flag|cutscene_camera_point|cutscene_title|cutscene_recording|device_group|ai_command_list|starting_profile|conversation|navpoint|team|hud_message|actor_variant|game_difficulty|ai_default_state|hud_corner|actor_type|function_name|passthrough)\\b"
+				}
+			]
+		},
+		"operators":{
+			"patterns": [
+				{
+					"name":"keyword.operator.hsc1",
+					"match": "(\\!=|\\*|\\+|\\-|/|%|\\<|\\<=|=|\\>|\\>=|=|\\b(and|or|not)\\b)"
+				}
+			]
+		},
+		"numbers":{
+			"patterns": [
+				{
+					"name":"constant.numeric.hsc1",
+					"match": "(?i)\\b(?:true|none|false|\\d+(?:\\.\\d+)?)\\b|\\b(default|player|human|covenant|flood|sentinel|unused6|unused7|unused8|unused9|easy|normal|hard|impossible|none|sleep|alert|move_repeat|move_loop|move_loop_back_and_forth|move_loop_random|move_random|guard|guard_at_position|search|flee|top_left|top_right|bottom_left|bottom_right|center|elite|jackal|grunt|hunter|engineer|assassin|player|marine|crew|combat_form|infection_form|carrier_form|monitor|sentinel|none|mounted_weapon)\\b"
+				}
+			]
+		},
+		"globals":{
+			"patterns": [
+				{
+					"name":"support.variable.hsc1",
+					"match": "\\b(render_effects|cinematic_skip_start_internal|cinematic_skip_stop_internal|game_is_authoritative|mcc_mission_segment|debug_teleport_player|reload_shader_transparent_chicago|rasterizer_model_ambient_reflection_tint|rasterizer_lights_reset_for_new_map|cinematic_set_near_clip_distance|sv_map|net_never_timeout|rasterizer_near_clip_distance|rasterizer_far_clip_distance|rasterizer_first_person_weapon_near_clip_distance|rasterizer_first_person_weapon_far_clip_distance|rasterizer_floating_point_zbuffer|rasterizer_framerate_throttle|rasterizer_framerate_stabilization|rasterizer_refresh_rate|rasterizer_frame_bounds_left|rasterizer_frame_bounds_right|rasterizer_frame_bounds_top|rasterizer_frame_bounds_bottom|rasterizer_stats|rasterizer_mode|rasterizer_wireframe|rasterizer_smart|rasterizer_debug_model_vertices|rasterizer_debug_model_lod|rasterizer_debug_transparents|rasterizer_debug_meter_shader|rasterizer_models|rasterizer_model_transparents|rasterizer_draw_first_person_weapon_first|rasterizer_stencil_mask|rasterizer_environment|rasterizer_environment_lightmaps|rasterizer_environment_shadows|rasterizer_environment_diffuse_lights|rasterizer_environment_diffuse_textures|rasterizer_environment_decals|rasterizer_environment_specular_lights|rasterizer_environment_specular_lightmaps|rasterizer_environment_reflection_lightmap_mask|rasterizer_environment_reflection_mirrors|rasterizer_environment_reflections|rasterizer_environment_transparents|rasterizer_environment_fog|rasterizer_environment_fog_screen|rasterizer_water|rasterizer_lens_flares|rasterizer_dynamic_unlit_geometry|rasterizer_dynamic_lit_geometry|rasterizer_dynamic_screen_geometry|rasterizer_hud_motion_sensor|rasterizer_detail_objects|rasterizer_debug_geometry|rasterizer_debug_geometry_multipass|rasterizer_fog_atmosphere|rasterizer_fog_plane|rasterizer_bump_mapping|rasterizer_lightmap_ambient|rasterizer_lightmap_mode|rasterizer_lightmaps_incident_radiosity|rasterizer_lightmaps_filtering|rasterizer_model_lighting_ambient|rasterizer_environment_alpha_testing|rasterizer_environment_specular_mask|rasterizer_shadows_convolution|rasterizer_shadows_debug|rasterizer_debug_shader_transparent_generic|rasterizer_active_camouflage|rasterizer_active_camouflage_multipass|rasterizer_plasma_energy|rasterizer_lens_flares_occlusion|rasterizer_lens_flares_occlusion_debug|rasterizer_ray_of_buddha|rasterizer_screen_flashes|rasterizer_screen_effects|rasterizer_profile_log|rasterizer_detail_objects_offset_multiplier|rasterizer_zbias|rasterizer_zoffset|force_all_player_views_to_default_player|rasterizer_safe_frame_bounds|freeze_flying_camera|rasterizer_zsprites|rasterizer_filthy_decal_fog_hack|pad3|pad3_scale|f0|f1|f2|f3|f4|f5|rasterizer_effects_level|rasterizer_fps|debug_no_frustum_clip|debug_frustum|screenshot_size|screenshot_count|terminal_render|player_spawn_count|debug_object_garbage_collection|debug_render_freeze|temporary_hud|breadcrumbs_navpoints_enabled_override|debug_leaf_index|debug_leaf_portal_index|debug_leaf_portals|debug_unit_animations|debug_damage_taken|cheat_deathless_player|cheat_jetpack|cheat_infinite_ammo|cheat_bottomless_clip|cheat_bump_possession|cheat_super_jump|cheat_reflexive_damage_effects|cheat_medusa|cheat_omnipotent|cheat_controller|effects_corpse_nonviolent|debug_sound_cache|debug_sound_cache_graph|sound_obstruction_ratio|debug_sound|debug_looping_sound|debug_sound_channels|debug_sound_channels_detail|debug_sound_hardware|loud_dialog_hack|sound_gain_under_dialog|object_light_ambient_base|object_light_ambient_scale|object_light_secondary_scale|object_light_interpolate|model_animation_compression|model_animation_data_compressed_size|model_animation_data_uncompressed_size|model_animation_data_compression_savings_in_bytes|model_animation_data_compression_savings_in_bytes_at_import|model_animation_data_compression_savings_in_percent|model_animation_bullshit0|model_animation_bullshit1|model_animation_bullshit2|model_animation_bullshit3|rider_ejection|stun_enable|debug_sprites|debug_portals|debug_inactive_objects|debug_objects|debug_objects_position_velocity|debug_objects_root_node|debug_objects_bounding_spheres|debug_objects_collision_models|debug_objects_physics|debug_objects_names|debug_objects_pathfinding_spheres|debug_objects_unit_vectors|debug_objects_unit_seats|debug_objects_unit_mouth_apeture|debug_objects_biped_physics_pills|debug_objects_biped_autoaim_pills|debug_objects_vehicle_powered_mass_points|debug_objects_devices|render_model_nodes|render_model_vertex_counts|render_model_index_counts|render_model_markers|render_model_no_geometry|render_shadows|debug_damage|debug_scripting|hs_verbose|breakpoints_enabled|debug_trigger_volumes|debug_point_physics|debug_physics_disable_penetration_freeze|debug_motion_sensor_draw_all_units|collision_debug|collision_debug_spray|collision_debug_features|collision_debug_repeat|collision_debug_flag_front_facing_surfaces|collision_debug_flag_back_facing_surfaces|collision_debug_flag_ignore_two_sided_surfaces|collision_debug_flag_ignore_invisible_surfaces|collision_debug_flag_ignore_breakable_surfaces|collision_debug_flag_structure|collision_debug_flag_media|collision_debug_flag_objects|collision_debug_flag_objects_bipeds|collision_debug_flag_objects_vehicles|collision_debug_flag_objects_weapons|collision_debug_flag_objects_equipment|collision_debug_flag_objects_projectiles|collision_debug_flag_objects_scenery|collision_debug_flag_objects_machines|collision_debug_flag_objects_controls|collision_debug_flag_objects_light_fixtures|collision_debug_flag_objects_placeholders|collision_debug_flag_try_to_keep_location_valid|collision_debug_flag_skip_passthrough_bipeds|collision_debug_flag_use_vehicle_physics|collision_debug_point_x|collision_debug_point_y|collision_debug_point_z|collision_debug_vector_i|collision_debug_vector_j|collision_debug_vector_k|collision_debug_length|collision_debug_width|collision_debug_height|collision_debug_phantom_bsp|debug_obstacle_path|debug_obstacle_path_on_failure|debug_obstacle_path_start_point_x|debug_obstacle_path_start_point_y|debug_obstacle_path_start_surface_index|debug_obstacle_path_goal_point_x|debug_obstacle_path_goal_point_y|debug_obstacle_path_goal_surface_index|debug_camera|debug_player|debug_structure|debug_structure_automatic|debug_bsp|debug_input|debug_permanent_decals|debug_fog_planes|decals|debug_decals|debug_object_lights|debug_lights|debug_biped_physics|debug_biped_skip_update|debug_biped_skip_collision|debug_biped_limp_body_disable|debug_collision_skip_objects|debug_collision_skip_vectors|debug_material_effects|weather|breakable_surfaces|recover_saved_games_hack|radiosity_quality|radiosity_step_count|radiosity_lines|radiosity_normals|structures_use_pvs_for_vs|debug_detail_objects|controls_enable_crouch|controls_swapped|controls_enable_doubled_spin|controls_swap_doubled_spin_state|player_autoaim|player_magnetism|debug_player_teleport|director_camera_switch_fast|director_camera_switching|debug_framerate|display_framerate|framerate_throttle|framerate_lock|debug_game_save|allow_out_of_sync|global_connection_dont_timeout|slow_server_startup_safety_zone_in_seconds|find_all_fucked_up_shit|error_suppress_all|run_game_scripts|debug_score|object_prediction|developer_mode|mouse_acceleration|debug_ice_cream_flavor_status_grunt_birthday_party|debug_ice_cream_flavor_status_assassins|debug_ice_cream_flavor_status_famine|debug_ice_cream_flavor_status_i_would_have_been_your_daddy|debug_ice_cream_flavor_status_blind|debug_ice_cream_flavor_status_ghost|debug_ice_cream_flavor_status_black_eye|debug_ice_cream_flavor_status_catch|debug_ice_cream_flavor_status_sputnik|debug_ice_cream_flavor_status_mythic|debug_ice_cream_flavor_status_anger|debug_ice_cream_flavor_status_thunderstorm|debug_ice_cream_flavor_status_iron|debug_ice_cream_flavor_status_thats_just_wrong|debug_ice_cream_flavor_status_bandanna|debug_ice_cream_flavor_status_boom|debug_ice_cream_flavor_status_eye_patch|debug_ice_cream_flavor_status_fog|debug_ice_cream_flavor_status_foreign|debug_ice_cream_flavor_status_grunt_funeral|debug_ice_cream_flavor_status_pinata|debug_ice_cream_flavor_status_recession|debug_ice_cream_flavor_status_malfunction|debug_ice_cream_flavor_status_streaking|debug_ice_cream_flavor_status_styx|debug_ice_cream_flavor_status_feather|debug_ice_cream_flavor_status_bonded_pair|debug_ice_cream_flavor_status_masterblaster|debug_ice_cream_flavor_force_coop|game_speed_value|game_paused)\\b"
+				}
+			]
+		},
+		"functions":{
+			"patterns": [
+				{
+					"name":"entity.name.function.hsc1",
+					"match": "(?<=\\()(\\w+)|(?<=\\(\\bscript\\b\\s\\b(startup|continuous|dormant|command_script)\\b\\s)(.+)|(?<=\\(\\bscript\\b\\s\\b(static|stub)\\b\\s\\b(mp_team|cinematic_scene_definition|object_list|delivery_method|unit_name|object_name|scenery|function_name|ai_behavior|bitmap|render_model|currency_type|event|object_definition|string_id|damage|weapon|unit_seat_mapping|ai_line|animation_budget_reference|controller|firefight_wave_type|ai_default_state|sound_budget_reference|ai|effect_scenery|model_state|passthrough|cutscene_flag|hud_corner|hud_message|wave_difficulty|lightmap_definition|script|text_justification|text_drop_shadow_type|network_event|point_reference|real|shader|object|secondary_skull|actor_variant|firefight_goal|ai_command_script|voice_mask|cinematic_lightprobe|structure_definition|effect|cutscene_recording|vehicle_name|subtitle_setting|string|device|actor_type|any_tag_not_resolving|device_group|effect_scenery_name|voice_output_setting|cinematic_definition|navpoint|bink_definition|player_character_type|cutscene_title|looping_sound_budget_reference|unit|character_physics|player|ai_command_list|animation_graph|style|vehicle|player_color|zone_set|boolean|any_tag|havok_group|trigger_volume|text_alignment|designer_zone|cutscene_camera_point|team|font|cinematic_transition_definition|conversation|starting_profile|long|skull|sound|button_preset|cinematic_scene_data_definition|damage_region|primary_skull|void|structure_bsp|looping_sound|device_name|short|damage_effect|firing_point_evaluator|weapon_name|scenery_name|folder|joystick_preset|ai_orders|game_difficulty|point_set_reference|player_model_choice|cui_screen_definition|sound_event)\\b\\s)(.+)"
+				}
+			]
+		},
+		"variables":{
+			"patterns": [
+				{
+					"name":"variable.hsc1",
+					"match": "(?<!\\\\|\\.)\\b\\w+\\b(?!\\\\|\\.)"
+				}
+			]
+		}
+	},
+	"scopeName": "source.hsc1"
+}
