@@ -1,0 +1,14 @@
+name: Atlas
+id: ari:cloud:compass:2261fd15-e484-47df-a3c1-3945f31f5015:component/e50c4fd7-4bca-45fe-87b2-62835b87da68/ca99199a-fd50-4e81-81cd-e88f524726c1
+description: A Visual Studio Code extension which provides syntax highlighting, intellisense integration, function definitions/parameters, value type listings, and other various support for Halo Script.
+configVersion: 1
+typeId: SERVICE
+fields:
+  tier: 4
+links: []
+relationships:
+  DEPENDS_ON: []
+labels:
+  - language:typescript
+  - source:github
+customFields: null
